@@ -25,3 +25,22 @@ exports.getAllPost = (req,res) => {
         }
     })
 }
+
+//文章新增
+exports.addPost = (req,res)=>{
+    // 接受参数
+    var obj = req.body
+    // 添加数据库所需要的三个字段的数据
+    obj.views = 0;
+    obj.likes = 0;
+    obj.user_id = req.session.currentUser.id;
+    // 调用数据模块中的方法
+    postsModel.addPost(obj,(err)=>{
+        if(err){
+            console.log(err)
+            res.json({code:400,msg:'数据新增失败'})
+        }else{
+            res.json({code:200,msg:'数据新增成功'})
+        }
+    })
+}

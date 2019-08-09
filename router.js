@@ -5,6 +5,7 @@ const pagesController = require('./controllers/pagesController.js')
 const userController = require('./controllers/userController.js')
 const postController = require('./controllers/postController.js')
 const cateController = require('./controllers/cateController.js')
+const uploadController = require('./controllers/uploadController')
 var router = express.Router()
 
 // 配置路由
@@ -29,7 +30,11 @@ router.get('/admin',pagesController.getAdminIndexPage)
       // 业务处理路由
       .post('/login',userController.login)
       .get('/getAllPost',postController.getAllPost)
+      .post('/addPost',postController.addPost)
       .get('/getAllCate',cateController.getAllCate)
+
+      //实现文件上传
+      .post('/uploadFile',uploadController.uploadFile)
 
 // 暴露
 module.exports = router

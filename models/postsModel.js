@@ -17,10 +17,10 @@ exports.getAllPost = (obj, callback) => {
                 join users on posts.user_id = users.id
                 join categories on posts.category_id = categories.id
                 where 1=1  ` // 添加恒成立，这样有一个好处：后面进行语句拼接的时候，不用再考虑是拼接 where 还是拼接 and,我们可以统一 拼接and
-    if( obj.cate && obj.cate != 'all'){ // 有没有传递分类数据
+    if (obj.cate && obj.cate != 'all') { // 有没有传递分类数据
         sql += ` and category_id = ${obj.cate}`
     }
-    if(obj.status && obj.status != 'all'){
+    if (obj.status && obj.status != 'all') {
         sql += ` and posts.status ='${obj.status}'`
     }
 
@@ -36,15 +36,37 @@ exports.getAllPost = (obj, callback) => {
             sql = `select count(*) as cnt
                     from posts
                     join users on posts.user_id = users.id
-                    join categories on posts.category_id = categories.id`
+                    join categories on posts.category_id = categories.id
+                    where 2=2`
+            if (obj.cate && obj.cate != 'all') { // 有没有传递分类数据
+                sql += ` and category_id = ${obj.cate}`
+            }
+            if (obj.status && obj.status != 'all') {
+                sql += ` and posts.status ='${obj.status}'`
+            }
             conn.query(sql, (err2, res2) => {
                 if (err2) {
                     callback(err2)
                 } else {
                     // 没有错误，不仅仅要返回之前的查询数据，而且还要返回当前查询的总记录数
-                    callback(null, { data: results, total: res2[0].cnt })
+                    callback(null, {
+                        data: results,
+                        total: res2[0].cnt
+                    })
                 }
             })
+        }
+    })
+}
+
+//文章新增
+exports.addPost = (obj,callback)=>{
+    let sql = `insert into posts set ?`
+    conn.query(sql,obj,(err,results)=>{
+        if(err){
+            callback(err);
+        }else{
+            callback(null)
         }
     })
 }
