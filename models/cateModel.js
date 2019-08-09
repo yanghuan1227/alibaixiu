@@ -1,5 +1,5 @@
 // 实现所有分类数据相关操作
-var conn = require('../utils/myconn.js')
+var conn = require('../utils/my-conn.js')
 
 // 获取所有分类数据
 exports.getAllCate = (callback) => {

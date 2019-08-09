@@ -1,6 +1,6 @@
 // 这个文件处理所有文章数据的操作
 // 引入连接对象
-const conn = require('../utils/myconn.js')
+const conn = require('../utils/my-conn.js')
 
 // 获取所有文章数据
 // obj是分页查询参数对象
