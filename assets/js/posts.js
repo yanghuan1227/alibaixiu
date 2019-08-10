@@ -1,7 +1,7 @@
 $(function(){
     // 定义全局的页码和页数量
     var pageNum = 1
-    var pageSize = 2
+    var pageSize = 4
    
 
     function init(search){
