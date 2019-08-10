@@ -31,6 +31,7 @@ exports.addPost = (req,res)=>{
     // 接受参数
     var obj = req.body
     // 添加数据库所需要的三个字段的数据
+    obj.id = null
     obj.views = 0;
     obj.likes = 0;
     obj.user_id = req.session.currentUser.id;
@@ -41,6 +42,54 @@ exports.addPost = (req,res)=>{
             res.json({code:400,msg:'数据新增失败'})
         }else{
             res.json({code:200,msg:'数据新增成功'})
+        }
+    })
+}
+
+//根据id获取所有数据
+exports.getPostById =(req,res)=>{
+    //接收参数
+    var id = req.query.id
+    //调用数据模块中的方法
+    postsModel.getPostById(id,(err,data)=>{
+        if(err){
+            res.json({code:400,msg:'数据查询失败'})
+        }else{
+            //将日期数据格式化
+            data.created = moment(data.created).format('YYYY-MM-DDTHH:mm')
+            res.json({
+                code:200,
+                msg:'数据查询成功',
+                data:data
+            })
+        }
+    })
+
+}
+
+//根据文章的id进行文章的编辑
+exports.editPostById =(req,res)=>{
+        var obj= req.body
+        postsModel.editPostById(obj,(err)=>{
+            if(err){
+                res.json({code:400,msg:'文章编辑失败'})
+            }else{
+                res.json({code:200,msg:'文章编辑成功'})
+            }
+        })
+}
+
+//根据文章id删除指定的文章
+exports.delPostById = (req,res)=>{
+    var id = req.query.id
+    postsModel.delPostById(id,(err)=>{
+        if(err){
+            res.json({code:400,msg:'文章删除失败'})
+        }else{
+            res.json({
+                code:200,
+                msg:'文章删除成功'
+            })
         }
     })
 }

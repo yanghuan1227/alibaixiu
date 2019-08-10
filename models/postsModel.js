@@ -70,3 +70,39 @@ exports.addPost = (obj,callback)=>{
         }
     })
 }
+
+//根据id获取所有文章数据
+exports.getPostById =(id,callback)=>{
+    var sql = 'SELECT * FROM posts WHERE id=' + id;
+    conn.query(sql,(err,results)=>{
+        if(err){
+            callback(err)
+        }else{
+            callback(null,results[0])
+        }
+    })
+}
+
+//根据id实现文章的编辑
+exports.editPostById =(obj,callback)=>{
+    let sql = 'update posts set ? where id = ?'
+    conn.query(sql,[obj,obj.id],(err,results)=>{
+        if(err){
+            callback(err)
+        }else{
+            callback(null)
+        }
+    })
+}
+
+//根据id实现文章的删除
+exports.delPostById = (id,callback)=>{
+    let sql = 'delete from posts where id = ?'
+    conn.query(sql,[id],(err) => {
+        if (err) {
+            callback(err)
+        } else {
+            callback(null)
+        }
+    })
+}

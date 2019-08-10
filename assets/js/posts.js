@@ -73,4 +73,28 @@ $(function(){
         // 发起ajax请求
         init(obj)
     })
+
+    //实现文章的删除
+    $('tbody').on('click','.btnDel',function(){
+        var id = $(this).data('id')
+        //弹出确认
+        if(confirm('请问是否真的需要删除？')){
+            $.ajax({
+                url:'/delPostById?id='+id,
+                type:'get',
+                dataType:'json',
+                success:function(res){
+                    if(res.code===200){
+                        $('.alert-danger>span').text(res.msg);
+                        $('.alert-danger').fadeIn(500).delay(3000).fadeOut(500)
+                        // 刷新的细节
+                        // 1.如果当前页只有一条记录，那么删除之后就应该加载 上一页的数据
+                        // 2.如果当前页有多条记录，那么就直接重新加载这一页
+                        // 3.如果是第一页，只有一条记录，那么就给出提示
+                    }
+                }
+            })
+        }
+
+    })
 })

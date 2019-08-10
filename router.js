@@ -29,8 +29,13 @@ router.get('/admin',pagesController.getAdminIndexPage)
 
       // 业务处理路由
       .post('/login',userController.login)
+
       .get('/getAllPost',postController.getAllPost)
       .post('/addPost',postController.addPost)
+      .get('/getPostById',postController.getPostById)
+      .post('/editPostById',postController.editPostById)
+      .get('/delPostById',postController.delPostById)
+
       .get('/getAllCate',cateController.getAllCate)
 
       //实现文件上传
