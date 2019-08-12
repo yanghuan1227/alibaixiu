@@ -70,7 +70,6 @@ exports.getPostById =(req,res)=>{
 //根据文章的id进行文章的编辑
 exports.editPostById =(req,res)=>{
         var obj= req.body
-        console.log(obj)
         postsModel.editPostById(obj,(err)=>{
             if(err){
                 res.json({code:400,msg:'文章编辑失败'})

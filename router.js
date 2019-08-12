@@ -37,9 +37,14 @@ router.get('/admin',pagesController.getAdminIndexPage)
       .get('/delPostById',postController.delPostById)
 
       .get('/getAllCate',cateController.getAllCate)
+      .post('/editCate',cateController.editCate)
+      .post('/addCate',cateController.addCate)
+      .get('/delCateById',cateController.delCateById)
 
       //实现文件上传
       .post('/uploadFile',uploadController.uploadFile)
+      
+
 
 // 暴露
 module.exports = router
